@@ -1,5 +1,6 @@
-<template>
-    <div class="cards">
+@extends('layouts.admin')
+    @section('content')
+        <div class="cards">
             <div class="card">
                 <div>
                     <div class="numbers">1,504</div>
@@ -132,7 +133,7 @@
                     <tr>
                         <td width="60px">
                             <div class="imgBx">
-                                <img src="@/assets/image/user.png" alt="">
+                                <img src="/image/user.png" alt="">
                             </div>
                         </td>
                         <td>
@@ -142,44 +143,34 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                     <tr>
-                        <td width="60px"><div class="imgBx"><img src="@/assets/image/user1.png" alt=""></div></td>
+                        <td width="60px"><div class="imgBx"><img src="/image/user1.png" alt=""></div></td>
                         <td><h4>David<br><span>Italy</span></h4></td>
                     </tr>
                 </table> 
             </div>
         </div>   
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style>
-
-</style>
+    @endsection

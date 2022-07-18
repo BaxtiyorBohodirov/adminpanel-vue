@@ -1,6 +1,5 @@
-const { getJSON } = require("jquery");
-const { toInteger, countBy } = require("lodash");
-
+const $ = require('jquery');
+window.$ = $;
 $('.edit-add input').on('keypress',function(ev){
     if(ev.key==='Enter')
     {
@@ -99,15 +98,13 @@ if(images)
     }
     var filesArr=new DataTransfer();
 }
-$('.toggle').click(function(){
+$('.toggle').click(function(e){
+    console.log(e)
     document.querySelector('.navigation').classList.toggle('active');
     document.querySelector('.main').classList.toggle('active');
-
-    });
-
-    $('.navigation ul li').hover(function(ev){
-       $('.hovered').removeClass('hovered');
-       $(ev.target).parent().addClass('hovered');
-    });
-
-    
+});
+$('.navigation ul li').hover(function(ev){
+    console.log(ev)
+    $('.hovered').removeClass('hovered');
+    $(ev.target).parent().addClass('hovered');
+});

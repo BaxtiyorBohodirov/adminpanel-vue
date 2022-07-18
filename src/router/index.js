@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router"
 import AdminPage from '@/views/admin/IndexPage'
 import MainPage from '@/views/layout-admin/MainPage'
 import IndexPage from '@/views/IndexPage'
+import IndexProducts from '@/views/admin/products/IndexProducts'
+import CreateProduct from '@/views/admin/products/CreateProduct'
 const routes=[
     {
         path:'/',
@@ -13,7 +15,17 @@ const routes=[
         children:[
             {
                 path:'',
-                component:AdminPage
+                component:AdminPage,
+            },
+            {
+                path:'products',
+                component:IndexProducts,
+                name:'products.index',
+            },
+            {
+                path:'products/create',
+                component:CreateProduct,
+                name:'products.create'
             }
         ]
     }
