@@ -6,7 +6,7 @@
             @endif -->
             <div class="form-group">
                 <label for="title_uz">Title Uz</label><br>
-                <input v-model="models.title_uz" type="text"  id="title_uz" name="title_uz" required>
+                <input  v-model="models.title_uz" type="text"  id="title_uz" name="title_uz" required>
                 <!-- @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label for="title_ru">Title Ru</label><br>
-                <input v-model="models.title_ru" type="text" id="title_ru" name="title_ru" required>
+                <input  v-model="models.title_ru" type="text" id="title_ru" name="title_ru" required>
                 <!-- @error('title')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -25,7 +25,7 @@
             </div>
              <div class="form-group">
                 <label  for="title_en">Title En</label><br>
-                <input v-model="models.title_en" type="text" id="title_en" name="title_en" required>
+                <input  v-model="models.title_en" type="text" id="title_en" name="title_en" required>
                 <!-- @error('title')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label for="content_uz">Content Uz</label><br>
-                <input v-model="models.content_uz" type="text"  id="content_uz" name="content_uz" required>
+                <input  v-model="models.content_uz" type="text"  id="content_uz" name="content_uz" required>
                 <!-- @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -44,7 +44,7 @@
 
             <div class="form-group">
                 <label for="content_ru">Content Ru</label><br>
-                <input v-model="models.content_ru" type="text" id="content_ru" name="content_ru"  required>
+                <input  v-model="models.content_ru" type="text" id="content_ru" name="content_ru"  required>
                 <!-- @error('content')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -53,7 +53,7 @@
             </div>
              <div class="form-group">
                 <label for="content_en">Content En</label><br>
-                <input v-model="models.content_en" type="text" id="content_en" name="content_en" required>
+                <input  v-model="models.content_en" type="text" id="content_en" name="content_en" required>
                 <!-- @error('content')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -63,7 +63,7 @@
             
             <div class="form-group">
                 <label for="status">Status</label><br>
-                <input v-model="models.status" type="text" id="status" name="status"  required>
+                <input  v-model="models.status" type="text" id="status" name="status"  required>
                 <!-- @error('status')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -72,7 +72,7 @@
             </div>
             <div class="form-group">
                 <label for="order">Order</label><br>
-                <input v-model="models.order" type="text" id="order" name="order"  required> 
+                <input  v-model="models.order" type="text" id="order" name="order"  required> 
                 <!-- @error('order')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -85,45 +85,43 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {mapActions, mapState, mapMutations} from 'vuex'
 export default {
     data(){
         return{
-            type:'create',
-              models:{
-                title_uz:'',
-                title_ru:'',
-                title_en:'',
-                content_uz:'',
-                content_ru:'',
-                content_en:'',
-                status:'',
-                order:''
-            }
+        }
+    },
+    
+    methods:{
+        ...mapActions({
+            submitData:'products/submitData',
+            getProduct:'products/getProduct',
+
+        }),
+       ...mapMutations({
+            setId:'products/setId',
+            setType:'products/setType',
+            setModels:'products/setModels',
+            setProduct:'products/setProduct',
+       })
+    },
+    mounted(){
+
+        if(this.$route.params.id!=null)
+        {
+            this.setType('edit')
+            this.setId(this.$route.params.id)
+            this.getProduct()
 
         }
     },
-    props:{
-        products:{
-            type:Object,
-            default:()=>{}
-        }
-    },
-    methods:{
-        async submitData()
-        {
-            const response=await axios.post('http://127.0.0.1:8000/api/products',
-                   this.models)
-            console.log(
-                response
-            )
-        }
-    },
-    mounted(){
-        if(this.products)
-        {
-            this.type='edit'
-        }
+    computed:{
+        ...mapState({
+            id:state=>state.products.id,
+            type:state=>state.products.type,
+            models:state=>state.products.models,
+            product:state=>state.products.product
+        })
     }
 }
 </script>

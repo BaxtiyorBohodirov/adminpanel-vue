@@ -4,6 +4,7 @@ import MainPage from '@/views/layout-admin/MainPage'
 import IndexPage from '@/views/IndexPage'
 import IndexProducts from '@/views/admin/products/IndexProducts'
 import CreateProduct from '@/views/admin/products/CreateProduct'
+import viewProduct from '@/views/admin/products/ViewProduct'
 const routes=[
     {
         path:'/',
@@ -26,6 +27,16 @@ const routes=[
                 path:'products/create',
                 component:CreateProduct,
                 name:'products.create'
+            },
+            {
+                path:'products/show/:id',
+                component:viewProduct,
+                name:'products.show'
+            },
+            {
+                path:'products/edit/:id',
+                component:CreateProduct,
+                name:'products.edit'
             }
         ]
     }

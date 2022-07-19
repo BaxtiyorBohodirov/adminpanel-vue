@@ -16,18 +16,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input @input="filter" v-model="filterArr.id" name="id" type="text"></td>
-                        <td><input @input="filter" v-model="filterArr.title_uz" name="title_uz" type="text"></td>
-                        <td><input @input="filter" v-model="filterArr.content_uz" name="content_uz" type="text"></td>
+                        <td><input @input="filter" v-model.trim="filterArr.id" name="id" type="text"></td>
+                        <td><input @input="filter" v-model.trim="filterArr.title_uz" name="title_uz" type="text"></td>
+                        <td><input @input="filter" v-model.trim="filterArr.content_uz" name="content_uz" type="text"></td>
                         <td>
-                            <select @change="filter" v-model="filterArr.status" name="status" id="order">
-                                <option value="" selected disabled></option>
+                            <select @change="filter" v-model.trim="filterArr.status" name="status" id="order">
+                                <option value="" selected>All</option>
                                 <option value="1">Published</option>
                                 <option value="0">Not Published</option>
                             </select>
                         </td>
                         <td>
-                            <input @input="filter" v-model="filterArr.order" name="order" type="number">
+                            <input @input="filter" v-model.trim="filterArr.order" name="order" type="number">
                         </td>
                     </tr>
                     <tr v-for="product in products" :key="product.id">    
@@ -38,16 +38,16 @@
                             <span v-if="product.status" class="status published">
                                     Published
                             </span>
-                            <span v-else>    
+                            <span v-else class="status not_published">    
                                     Not Published
                             </span>            
                         </td>
                         <td>{{product.order}}</td>
                         <td>
                             <div class="buttons">       
-                                <a @click="route({name:'products.edit',params:{id:product.id}})" class="btn btn-update">Update</a>
-                                <a @click="route({name:'products.show',params:{id:product.id}})" class="btn btn-show">Show</a>
-                                <a @click="route({name:'products.destroy',params:{id:product.id}})" onclick="return confirm('Are you sure to delete this data?')" class="btn btn-delete">Delete</a>
+                                <a @click="$router.push({path:'products/edit/'+product.id})" class="btn btn-update">Update</a>
+                                <a @click="$router.push('products/show/'+product.id)" class="btn btn-show">Show</a>
+                                <a @click="deleteProduct(product.id)" class="btn btn-delete">Delete</a>
                             </div>
                         </td>
                     </tr>
@@ -63,47 +63,42 @@
 </template>
 
 <script>
-import axios from 'axios'
+import { mapState, mapActions,mapMutations } from "vuex";
 export default {
     data(){
         return{
-            products:[],
-            allProducts:[],
-            filterArr:{
-                id:'',
-                title_uz:'',
-                content_uz:'',
-                status:'',
-                order:'',
-            }
         }
     },
     methods:{
-        async getProducts(){
-            const products=await axios.get('http://127.0.0.1:8000/api/products');
-            this.products=products.data.data;
-            this.allProducts=this.products;
-        },
-        filter(){
-            let i=true
-            for (const key in this.filterArr) {
-                if(i)
-                {
-                    this.products=this.allProducts.filter(x=>x[key].toString().toLowerCase().includes(this.filterArr[key].toString().toLowerCase()))
-                    i=false                    
-                }
-                else
-                {
-                    this.products=this.products.filter(x=>x[key].toString().toLowerCase().includes(this.filterArr[key].toString().toLowerCase()))
-                }
-        }
-        }
+       ...mapActions({
+            getProducts:'products/getProducts',
+            deleteProduct:'products/deleteProduct',
+            filter:'products/filter'
+       }),
+       ...mapMutations({
+            setProducts:'products/setProducts',
+            setAllProducts:'products/setAllProducts',
+            setFilterArr:'products/setFilterArr'
+       }),
+       filterMethod()
+       {
+            // this.setFilterArr()
+       }
     },
     props:{
         
     },
     mounted(){
-       this.getProducts();
+        this.getProducts()
+    },
+    computed:{
+        ...mapState(
+            {
+                products:state=>state.products.products,
+                allProducts:state=>state.products.allProducts,
+                filterArr:state=>state.products.filterArr
+            },
+        )
     }
 }
 </script>

@@ -1,0 +1,24 @@
+export const state={
+    products:[],
+    allProducts:[],
+    filterArr:{
+        id:'',
+        title_uz:'',
+        content_uz:'',
+        status:'',
+        order:'',
+    },
+    id:null,
+    type:'create',
+    models:{
+        title_uz:'',
+        title_ru:'',
+        title_en:'',
+        content_uz:'',
+        content_ru:'',
+        content_en:'',
+        status:'',
+        order:''
+    },
+    product:{}
+}
