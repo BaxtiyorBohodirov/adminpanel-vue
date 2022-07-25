@@ -80,16 +80,29 @@ export default {
             setAllProducts:'products/setAllProducts',
             setFilterArr:'products/setFilterArr'
        }),
-       filterMethod()
-       {
-            // this.setFilterArr()
-       }
+      
     },
     props:{
         
     },
-    mounted(){
+    beforeCreate(){
+
+    },
+    beforeMount()
+    {
         this.getProducts()
+    },
+    mounted(){
+    console.log(this.products)
+    // if(localStorage.filterArr)
+        // {
+        //     const filterArr=JSON.parse(localStorage.getItem('filterArr'));
+        //     this.setFilterArr(filterArr)
+        // }
+    
+    },
+    created(){
+       
     },
     computed:{
         ...mapState(

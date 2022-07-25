@@ -45,5 +45,11 @@ const router=createRouter({
     routes,
     history:createWebHistory(process.env.BASE_URL)
 })
+// router.beforeEach((to,from,next)=>{
+//     // if(IS_ADMIN)
+//     // {
+//     //     next()
+//     // }
+// })
 
 export default router

@@ -1,10 +1,17 @@
 import router from "@/router";
 import {index, show, destroy, update,  store} from '@/api/products'
 export const actions={
-   async getProducts({commit}){
+   async getProducts({commit, dispatch}){
         const products=await index();
+
+
         commit('setProducts',products)
         commit('setAllProducts',products)
+        if(localStorage.filterArr)
+        {
+            commit('setFilterArr',JSON.parse(localStorage.getItem('filterArr')))
+            dispatch('filter')
+        }
     },
    async deleteProduct({dispatch},id)
     {   
@@ -22,13 +29,14 @@ export const actions={
             if(i)
             {
               commit('setProducts',state.allProducts.filter(x=>x[key].toString().toLowerCase().includes(state.filterArr[key].toString().toLowerCase())))
-                i=false                    
+                i=false
             }
             else
             {
               commit('setProducts',state.products.filter(x=>x[key].toString().toLowerCase().includes(state.filterArr[key].toString().toLowerCase())))
             }
         }
+        localStorage.setItem('filterArr',JSON.stringify(state.filterArr))
     },
    async submitData({state,commit})
     {

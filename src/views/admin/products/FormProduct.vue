@@ -112,7 +112,19 @@ export default {
             this.setType('edit')
             this.setId(this.$route.params.id)
             this.getProduct()
-
+        }
+        else
+        {
+            this.setModels({
+                title_uz:'',
+                title_ru:'',
+                title_en:'',
+                content_uz:'',
+                content_ru:'',
+                content_en:'',
+                status:'',
+                order:''
+            })
         }
     },
     computed:{
