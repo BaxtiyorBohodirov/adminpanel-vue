@@ -5,10 +5,18 @@ import IndexPage from '@/views/IndexPage'
 import IndexProducts from '@/views/admin/products/IndexProducts'
 import CreateProduct from '@/views/admin/products/CreateProduct'
 import viewProduct from '@/views/admin/products/ViewProduct'
+import  LoginPage from '@/views/login/LoginMain'
+import store from "@/store/"
 const routes=[
     {
         path:'/',
-        component:IndexPage
+        component:IndexPage,
+        name:'home',
+    },
+    {
+        path:"/login",
+        name:"login",
+        component:LoginPage
     },
     {
         path:'/admin',
@@ -17,6 +25,7 @@ const routes=[
             {
                 path:'',
                 component:AdminPage,
+                name:'adminpage'
             },
             {
                 path:'products',
@@ -45,11 +54,22 @@ const router=createRouter({
     routes,
     history:createWebHistory(process.env.BASE_URL)
 })
-// router.beforeEach((to,from,next)=>{
-//     // if(IS_ADMIN)
-//     // {
-//     //     next()
-//     // }
-// })
+router.beforeEach((to,from,next)=>{
+    const IS_AUTH = store.getters['auth/IS_AUTH']
+    if(to.name==='login')
+    {
+        return  next()
+    }
+    if(IS_AUTH)
+    {
+        return next()
+    }
+    else
+    {
+        store.commit('auth/setNextRoute',to.name);
+        console.log(to);
+        return next({name:'login'})    
+    }
+})
 
 export default router

@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapState, mapActions,mapMutations } from "vuex";
+import {  mapActions,mapMutations, mapGetters } from "vuex";
 export default {
     data(){
         return{
@@ -93,7 +93,7 @@ export default {
         this.getProducts()
     },
     mounted(){
-    console.log(this.products)
+    console.log(this.filterArr)
     // if(localStorage.filterArr)
         // {
         //     const filterArr=JSON.parse(localStorage.getItem('filterArr'));
@@ -105,13 +105,18 @@ export default {
        
     },
     computed:{
-        ...mapState(
-            {
-                products:state=>state.products.products,
-                allProducts:state=>state.products.allProducts,
-                filterArr:state=>state.products.filterArr
-            },
-        )
+        // ...mapState(
+        //     {
+        //         products:state=>state.products.products,
+        //         allProducts:state=>state.products.allProducts,
+        //         filterArr:state=>state.products.filterArr
+        //     }),
+        ...mapGetters({
+            products:'products/products',
+            allProducts:'products/allProducts',
+            filterArr:'products/filterArr',
+        })
+        
     }
 }
 </script>
